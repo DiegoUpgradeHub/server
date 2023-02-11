@@ -1,8 +1,9 @@
 //Requerir paquetes o librerias
 const mongoose = require(`mongoose`);
+const Schema = mongoose.Schema;
+const uniqueValidator = require('mongoose-unique-validator');
 
 //Creación del esquema
-const Schema = mongoose.Schema;
 const productSchema = new Schema(
     {
         name: { type: String, required: true },
@@ -13,9 +14,9 @@ const productSchema = new Schema(
         vegetarian: { type: Boolean, required: true}
     },
     {
-        timestamps: true,
+        collection: 'products',
     } 
 );
 
-const Product = mongoose.model(`Product`, productSchema);
-module.exports = Product;
+productSchema.plugin(uniqueValidator, { message: 'Name already in use.' });
+module.exports = mongoose.model('Product', productSchema);

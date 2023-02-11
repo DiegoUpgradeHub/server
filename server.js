@@ -22,6 +22,11 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cors());
 
+//Ruta al HTML. Útil para desplegar en Vercel
+app.get("/", (req, res) => {
+    res.sendFile(__dirname + "/api");
+});
+
 // Aquí indicamos las rutas a usar
 app.use('/public', express.static('public'));
 
