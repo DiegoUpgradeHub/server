@@ -8,7 +8,7 @@ const authorize = require("../utils/middlewares/auth.middleware")
 const Product = require(`../models/product.model`);
 
 //Obtener todas los productos
-router.get('/products').get(authorize, async (req, res, next) => {
+router.get('/products', async (req, res, next) => {
 	try {
 		const products = await Product.find();
 		return res.status(200).json(products)
@@ -18,7 +18,7 @@ router.get('/products').get(authorize, async (req, res, next) => {
 });
 
 //Obtener productos por categoría
-router.get('/products/category/:category').get(authorize, async (req, res, next) => {
+router.get('/products/category/:category', async (req, res, next) => {
 	const { category } = req.params;
 
 	try {
@@ -30,7 +30,7 @@ router.get('/products/category/:category').get(authorize, async (req, res, next)
 });
 
 //Obtener productos por nombre
-router.get('/products/name/:name').get(authorize, async (req, res, next) => {
+router.get('/products/name/:name', async (req, res, next) => {
 	const { name } = req.params;
 
 	try {
@@ -42,7 +42,7 @@ router.get('/products/name/:name').get(authorize, async (req, res, next) => {
 });
 
 //Crear nuevo producto
-router.post('/products/create').get(authorize, async (req, res, next) => {
+router.post('/products/create', async (req, res, next) => {
     try {
         const newProduct = new Product({
             name: req.body.name,
@@ -61,7 +61,7 @@ router.post('/products/create').get(authorize, async (req, res, next) => {
 });
 
 //Eliminar producto por id
-router.delete('/products/delete/:id').get(authorize, async (req, res, next) => {
+router.delete('/products/delete/:id', async (req, res, next) => {
     try {
         const { id } = req.params;
         const productDeleted = await Product.findByIdAndDelete(id);
@@ -72,7 +72,7 @@ router.delete('/products/delete/:id').get(authorize, async (req, res, next) => {
 });
 
 //Editar producto por id
-router.put('/products/edit/:id').get(authorize, async (req, res, next) => {
+router.put('/products/edit/:id', async (req, res, next) => {
     try {
         const { id } = req.params 
         const productModify = new Product(req.body) 
